@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import AddMemberForm from '@/components/AddMemberForm';
 import UpdateProgressForm from '@/components/UpdateProgressForm';
 import Dashboard from '@/components/Dashboard';
+import MembersList from '@/components/MembersList';
 import { 
   getGroupData, 
   addMember as addMemberToStorage, 
