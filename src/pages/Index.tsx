@@ -44,13 +44,13 @@ const Index = () => {
   if (loading || !groupData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-brand-500 font-medium">Chargement...</div>
+        <div className="animate-pulse text-primary font-medium">Chargement...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-gray-100">
+    <div className="min-h-screen">
       <Header 
         groupName={groupData.name} 
         memberCount={groupData.members.length} 
