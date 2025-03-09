@@ -41,22 +41,26 @@ const ProgressBar = ({
     return () => observer.disconnect();
   }, []);
 
+  // Handle custom color that comes as full CSS value
+  const progressBarStyle = {
+    width: isVisible ? `${clampedProgress}%` : '0%',
+    '--progress-width': `${clampedProgress}%`,
+    backgroundColor: color.startsWith('bg-') ? undefined : color,
+  } as React.CSSProperties;
+
   return (
     <div className="relative">
       <div 
         ref={progressRef}
-        className={cn('progress-bar-container', height, className)}
+        className={cn('progress-bar-container bg-gray-200 rounded-full overflow-hidden', height, className)}
       >
         <div
           className={cn(
-            'progress-bar', 
-            color,
+            'progress-bar h-full rounded-full', 
+            color.startsWith('bg-') ? color : '',
             { 'transition-all duration-1000': animated }
           )}
-          style={{
-            width: isVisible ? `${clampedProgress}%` : '0%',
-            '--progress-width': `${clampedProgress}%`,
-          } as React.CSSProperties}
+          style={progressBarStyle}
         />
       </div>
       {showPercentage && (

@@ -50,7 +50,7 @@ const GroupStats = ({ data }: GroupStatsProps) => {
               <ProgressBar 
                 progress={performancePercentage}
                 height="h-3"
-                color={`bg-[${performer.avatarColor}]`}
+                color={performer.avatarColor}
                 className="mt-2"
               />
               <div className="text-xs text-gray-400 mt-3">

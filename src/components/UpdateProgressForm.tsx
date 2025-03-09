@@ -76,7 +76,7 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
               </div>
               <ProgressBar 
                 progress={(member.completedAhzab / member.totalAhzab) * 100}
-                color={`bg-[${member.avatarColor}]`}
+                color={member.avatarColor}
                 className="mt-2"
               />
             </div>
@@ -121,6 +121,7 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
             progress={(ahzabCount / selectedMember.totalAhzab) * 100}
             height="h-3"
             showPercentage={true}
+            color={selectedMember.avatarColor}
           />
           
           <div className="flex space-x-3 pt-2">

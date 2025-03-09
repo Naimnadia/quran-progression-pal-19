@@ -55,7 +55,7 @@ const MembersList = ({ members, onRemoveMember }: MembersListProps) => {
                 </div>
                 <ProgressBar 
                   progress={(member.completedAhzab / member.totalAhzab) * 100}
-                  color={`bg-[${member.avatarColor}]`}
+                  color={member.avatarColor}
                   className="w-full sm:max-w-[200px]"
                 />
               </div>

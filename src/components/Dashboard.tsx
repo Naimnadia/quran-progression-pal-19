@@ -43,7 +43,7 @@ const Dashboard = ({ data, onRemoveMember }: DashboardProps) => {
                   </div>
                   <ProgressBar
                     progress={progressPercentage}
-                    color={`bg-[${member.avatarColor}]`}
+                    color={member.avatarColor}
                     height="h-3"
                     animated={true}
                     showPercentage={false}
