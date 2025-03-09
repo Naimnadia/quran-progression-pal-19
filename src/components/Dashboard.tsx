@@ -59,7 +59,7 @@ const Dashboard = ({ data, onRemoveMember }: DashboardProps) => {
       </div>
       
       <MembersList 
-        members={data.members}
+        members={sortedMembers}
         onRemoveMember={onRemoveMember}
       />
     </div>

@@ -12,7 +12,7 @@ import {
   updateMemberProgress as updateMemberProgressInStorage,
   removeMember as removeMemberFromStorage
 } from '@/utils/storage';
-import { GroupData } from '@/utils/types';
+import { GroupData, Member } from '@/utils/types';
 import { Gauge, Users, BookOpen } from 'lucide-react';
 
 const Index = () => {
@@ -49,6 +49,18 @@ const Index = () => {
     );
   }
 
+  // Sort members by progress percentage (highest to lowest)
+  const sortedMembers = [...groupData.members].sort((a, b) => {
+    const progressA = (a.completedAhzab / a.totalAhzab) * 100;
+    const progressB = (b.completedAhzab / b.totalAhzab) * 100;
+    return progressB - progressA;
+  });
+
+  const sortedGroupData = {
+    ...groupData,
+    members: sortedMembers
+  };
+
   return (
     <div className="min-h-screen">
       <Header 
@@ -75,7 +87,7 @@ const Index = () => {
           
           <TabsContent value="dashboard" className="animate-slide-up">
             <Dashboard 
-              data={groupData}
+              data={sortedGroupData}
               onRemoveMember={handleRemoveMember}
             />
           </TabsContent>
@@ -84,7 +96,7 @@ const Index = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="md:col-span-2">
                 <MembersList 
-                  members={groupData.members}
+                  members={sortedMembers}
                   onRemoveMember={handleRemoveMember}
                 />
               </div>
@@ -96,7 +108,7 @@ const Index = () => {
           
           <TabsContent value="progress" className="animate-slide-up">
             <UpdateProgressForm 
-              members={groupData.members}
+              members={sortedMembers}
               onUpdateProgress={handleUpdateProgress}
             />
           </TabsContent>
