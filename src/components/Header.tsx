@@ -33,7 +33,7 @@ const Header = ({ groupName, memberCount }: HeaderProps) => {
             <Book size={20} />
           </div>
           <div>
-            <h1 className="text-xl font-semibold tracking-tight">{groupName}</h1>
+            <h1 className="text-xl font-semibold tracking-tight" dir="rtl">{groupName}</h1>
             <p className="text-sm text-muted-foreground flex items-center mt-0.5">
               <Users size={14} className="mr-1" /> {memberCount} membres
             </p>

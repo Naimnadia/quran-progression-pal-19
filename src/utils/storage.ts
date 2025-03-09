@@ -6,7 +6,7 @@ const TOTAL_AHZAB = 60;
 
 // Initialize with example data if nothing exists
 const defaultData: GroupData = {
-  name: "Groupe de récitation",
+  name: "اقرأ و ارتقى",
   members: [
     {
       id: "1",
