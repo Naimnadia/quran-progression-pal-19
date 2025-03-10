@@ -1,7 +1,7 @@
 
 import { Member } from '@/utils/types';
 import { cn } from '@/lib/utils';
-import { UserMinus } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import ProgressBar from './ProgressBar';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -72,7 +72,7 @@ const MembersList = ({ members, onRemoveMember }: MembersListProps) => {
                 className="text-gray-400 hover:text-red-500 mr-2"
                 onClick={() => handleRemoveMember(member.id, member.name)}
               >
-                <UserMinus size={18} />
+                <Trash2 size={18} />
               </Button>
             </div>
           </div>
