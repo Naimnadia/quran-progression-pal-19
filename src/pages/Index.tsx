@@ -4,7 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
 import AddMemberForm from '@/components/AddMemberForm';
 import UpdateProgressForm from '@/components/UpdateProgressForm';
-import Dashboard from '@/components/Dashboard';
 import MembersList from '@/components/MembersList';
 import { 
   getGroupData, 
@@ -12,8 +11,8 @@ import {
   updateMemberProgress as updateMemberProgressInStorage,
   removeMember as removeMemberFromStorage
 } from '@/utils/storage';
-import { GroupData, Member } from '@/utils/types';
-import { Gauge, Users, BookOpen } from 'lucide-react';
+import { GroupData } from '@/utils/types';
+import { Users, BookOpen } from 'lucide-react';
 
 const Index = () => {
   const [groupData, setGroupData] = useState<GroupData | null>(null);
@@ -56,11 +55,6 @@ const Index = () => {
     return progressB - progressA;
   });
 
-  const sortedGroupData = {
-    ...groupData,
-    members: sortedMembers
-  };
-
   return (
     <div className="min-h-screen" dir="rtl">
       <Header 
@@ -69,12 +63,8 @@ const Index = () => {
       />
       
       <main className="max-w-7xl mx-auto pt-28 px-4 pb-16">
-        <Tabs defaultValue="dashboard" className="w-full animate-fade-in">
-          <TabsList className="glass mb-8 p-1 w-full sm:w-auto grid grid-cols-3 sm:flex">
-            <TabsTrigger value="dashboard" className="px-4 py-2">
-              <Gauge size={16} className="ml-2" />
-              <span>لوحة القيادة</span>
-            </TabsTrigger>
+        <Tabs defaultValue="members" className="w-full animate-fade-in">
+          <TabsList className="glass mb-8 p-1 w-full sm:w-auto grid grid-cols-2 sm:flex">
             <TabsTrigger value="members" className="px-4 py-2">
               <Users size={16} className="ml-2" />
               <span>الأعضاء</span>
@@ -84,13 +74,6 @@ const Index = () => {
               <span>التقدم</span>
             </TabsTrigger>
           </TabsList>
-          
-          <TabsContent value="dashboard" className="animate-slide-up">
-            <Dashboard 
-              data={sortedGroupData}
-              onRemoveMember={handleRemoveMember}
-            />
-          </TabsContent>
           
           <TabsContent value="members" className="animate-slide-up">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

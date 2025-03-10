@@ -28,14 +28,14 @@ const Header = ({ groupName, memberCount }: HeaderProps) => {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6',
         scrolled 
-          ? 'glass shadow-md backdrop-blur-md py-3' 
+          ? 'glass shadow-lg backdrop-blur-xl py-3' 
           : 'bg-transparent py-6'
       )}
       dir="rtl"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <div className="bg-brand-500 text-white p-2 rounded-lg animate-pulse-scale">
+          <div className="bg-primary text-white p-2 rounded-lg">
             <Book size={20} />
           </div>
           <div>
@@ -46,10 +46,10 @@ const Header = ({ groupName, memberCount }: HeaderProps) => {
           </div>
         </div>
         
-        <div className="flex items-center space-x-4">
-          <div className="hidden md:flex relative">
-            <div className="glass px-3 py-1.5 rounded-full text-sm font-medium">
-              تقدم القرآن
+        <div className="flex items-center">
+          <div className="relative">
+            <div className="glass px-3 py-1.5 rounded-full text-sm font-medium bg-primary/20">
+              قراءة القرآن
             </div>
           </div>
         </div>

@@ -5,44 +5,44 @@
 
 @layer base {
   :root {
-    --background: 174 45% 7%; /* Deep teal background */
+    --background: 210 50% 5%; /* Dark blue-gray background */
     --foreground: 210 40% 98%;
 
-    --card: 174 35% 12%; /* Deep teal card */
+    --card: 210 40% 8%; /* Dark blue-gray card */
     --card-foreground: 210 40% 98%;
 
-    --popover: 174 35% 12%;
+    --popover: 210 40% 8%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 172 75% 45%; /* Teal primary */
+    --primary: 263 70% 50%; /* Vibrant purple primary */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 174 30% 15%;
+    --secondary: 210 40% 12%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 174 20% 20%;
+    --muted: 210 40% 15%;
     --muted-foreground: 215 20% 75%;
 
-    --accent: 172 75% 45%;
+    --accent: 263 70% 50%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 174 15% 25%;
-    --input: 174 15% 25%;
-    --ring: 172 75% 45%;
+    --border: 210 40% 18%;
+    --input: 210 40% 18%;
+    --ring: 263 70% 50%;
 
     --radius: 1rem;
 
-    --sidebar-background: 174 30% 15%;
-    --sidebar-foreground: 172 30% 90%;
-    --sidebar-primary: 172 75% 45%;
-    --sidebar-primary-foreground: 174 5% 10%;
-    --sidebar-accent: 174 20% 25%;
-    --sidebar-accent-foreground: 172 30% 90%;
-    --sidebar-border: 174 20% 25%;
-    --sidebar-ring: 172 75% 45%;
+    --sidebar-background: 210 40% 12%;
+    --sidebar-foreground: 210 30% 90%;
+    --sidebar-primary: 263 70% 50%;
+    --sidebar-primary-foreground: 210 5% 10%;
+    --sidebar-accent: 210 40% 15%;
+    --sidebar-accent-foreground: 210 30% 90%;
+    --sidebar-border: 210 40% 18%;
+    --sidebar-ring: 263 70% 50%;
   }
 
   * {
@@ -77,11 +77,11 @@
 
 @layer components {
   .glass {
-    @apply bg-black/20 backdrop-blur-lg border border-white/10 shadow-lg;
+    @apply bg-black/30 backdrop-blur-xl border border-white/10 shadow-lg;
   }
   
   .glass-dark {
-    @apply bg-black/40 backdrop-blur-lg border border-white/10 shadow-lg;
+    @apply bg-black/50 backdrop-blur-xl border border-white/10 shadow-lg;
   }
   
   .progress-bar-container {

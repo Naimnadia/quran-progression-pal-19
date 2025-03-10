@@ -38,7 +38,7 @@ const MembersList = ({ members, onRemoveMember }: MembersListProps) => {
         {members.map((member) => (
           <div 
             key={member.id}
-            className="glass p-4 rounded-xl transition-all duration-300 hover:shadow-md flex flex-col sm:flex-row sm:items-center"
+            className="glass p-4 rounded-xl transition-all duration-300 hover:shadow-lg flex flex-col sm:flex-row sm:items-center"
           >
             <div className="flex items-center space-x-4 mb-4 sm:mb-0 sm:flex-1">
               <div 
@@ -50,7 +50,7 @@ const MembersList = ({ members, onRemoveMember }: MembersListProps) => {
               
               <div className="flex-1 mr-4">
                 <h4 className="font-medium">{member.name}</h4>
-                <div className="text-sm text-gray-500 mb-1">
+                <div className="text-sm text-gray-400 mb-1">
                   {member.completedAhzab} / {member.totalAhzab} أحزاب تم إكمالها
                 </div>
                 <ProgressBar 
@@ -62,7 +62,7 @@ const MembersList = ({ members, onRemoveMember }: MembersListProps) => {
             </div>
             
             <div className="flex justify-between items-center sm:justify-end sm:space-x-4">
-              <div className="text-xl font-bold text-brand-500">
+              <div className="text-xl font-bold text-primary">
                 {Math.round((member.completedAhzab / member.totalAhzab) * 100)}%
               </div>
               
