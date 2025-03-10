@@ -39,7 +39,7 @@ const Header = ({ groupName, memberCount }: HeaderProps) => {
             <Book size={20} />
           </div>
           <div>
-            <h1 className="text-xl font-semibold tracking-tight">{groupName}</h1>
+            <h1 className="text-xl font-cairo font-bold tracking-tight">{groupName}</h1>
             <p className="text-sm text-muted-foreground flex items-center mt-0.5">
               <Users size={14} className="ml-1" /> {memberCount} الأعضاء
             </p>
@@ -48,7 +48,7 @@ const Header = ({ groupName, memberCount }: HeaderProps) => {
         
         <div className="flex items-center">
           <div className="relative">
-            <div className="glass px-3 py-1.5 rounded-full text-sm font-medium bg-primary/20">
+            <div className="glass px-3 py-1.5 rounded-full text-sm font-medium font-cairo bg-primary/20">
               قراءة القرآن
             </div>
           </div>
