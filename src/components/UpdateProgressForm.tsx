@@ -27,12 +27,12 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
     e.preventDefault();
     
     if (!selectedMember) {
-      toast.error('Veuillez sélectionner un membre');
+      toast.error('يرجى تحديد عضو');
       return;
     }
     
     if (ahzabCount < 0 || ahzabCount > selectedMember.totalAhzab) {
-      toast.error(`Le nombre d'ahzab doit être entre 0 et ${selectedMember.totalAhzab}`);
+      toast.error(`يجب أن يكون عدد الأحزاب بين 0 و ${selectedMember.totalAhzab}`);
       return;
     }
     
@@ -40,10 +40,10 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
     
     try {
       onUpdateProgress(selectedMember.id, ahzabCount);
-      toast.success('Progression mise à jour avec succès');
+      toast.success('تم تحديث التقدم بنجاح');
       setSelectedMember(null);
     } catch (error) {
-      toast.error('Erreur lors de la mise à jour');
+      toast.error('خطأ أثناء التحديث');
     } finally {
       setIsSubmitting(false);
     }
@@ -69,10 +69,10 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
             >
               {member.name.charAt(0).toUpperCase()}
             </div>
-            <div className="flex-1">
+            <div className="flex-1 mr-3">
               <div className="font-medium">{member.name}</div>
               <div className="text-xs text-gray-500">
-                {member.completedAhzab} / {member.totalAhzab} ahzab ({Math.round((member.completedAhzab / member.totalAhzab) * 100)}%)
+                {member.completedAhzab} / {member.totalAhzab} أحزاب ({Math.round((member.completedAhzab / member.totalAhzab) * 100)}%)
               </div>
               <ProgressBar 
                 progress={(member.completedAhzab / member.totalAhzab) * 100}
@@ -92,14 +92,14 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
     return (
       <form onSubmit={handleSubmit} className="glass p-6 rounded-xl animate-fade-in">
         <h3 className="text-lg font-medium mb-4">
-          Mettre à jour la progression de {selectedMember.name}
+          تحديث تقدم {selectedMember.name}
         </h3>
         
         <div className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="ahzabCount" className="text-sm font-medium flex items-center">
-              <BookOpen size={16} className="mr-2" />
-              Nombre d'ahzab complétés
+              <BookOpen size={16} className="ml-2" />
+              عدد الأحزاب المكتملة
             </label>
             <div className="flex items-center space-x-4">
               <Input
@@ -111,8 +111,8 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
                 onChange={(e) => setAhzabCount(parseInt(e.target.value) || 0)}
                 className="bg-white bg-opacity-50"
               />
-              <span className="text-sm text-gray-500">
-                sur {selectedMember.totalAhzab}
+              <span className="text-sm text-gray-500 mr-4">
+                من {selectedMember.totalAhzab}
               </span>
             </div>
           </div>
@@ -130,16 +130,16 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
               className="flex-1 group"
               disabled={isSubmitting}
             >
-              <Save size={18} className="mr-2 group-hover:scale-110 transition-transform" />
-              Enregistrer
+              <Save size={18} className="ml-2 group-hover:scale-110 transition-transform" />
+              حفظ
             </Button>
             <Button 
               type="button" 
               variant="outline"
-              className="flex-1"
+              className="flex-1 mr-3"
               onClick={() => setSelectedMember(null)}
             >
-              Annuler
+              إلغاء
             </Button>
           </div>
         </div>
@@ -149,7 +149,7 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-medium">Mettre à jour la progression</h3>
+      <h3 className="text-xl font-medium">تحديث التقدم</h3>
       {renderMembersList()}
       {renderUpdateForm()}
     </div>

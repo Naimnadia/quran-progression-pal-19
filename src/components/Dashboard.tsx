@@ -3,7 +3,6 @@ import { GroupData } from '@/utils/types';
 import GroupStats from './GroupStats';
 import MembersList from './MembersList';
 import ProgressBar from './ProgressBar';
-import { calculateGroupProgress } from '@/utils/storage';
 
 interface DashboardProps {
   data: GroupData;
@@ -24,7 +23,7 @@ const Dashboard = ({ data, onRemoveMember }: DashboardProps) => {
       
       {/* Comparison of progress bars */}
       <div className="glass p-6 rounded-xl">
-        <h3 className="text-xl font-medium mb-6">Comparaison des progressions</h3>
+        <h3 className="text-xl font-medium mb-6">مقارنة التقدم</h3>
         <div className="space-y-4">
           {sortedMembers.map(member => {
             const progressPercentage = (member.completedAhzab / member.totalAhzab) * 100;
@@ -36,7 +35,7 @@ const Dashboard = ({ data, onRemoveMember }: DashboardProps) => {
                 >
                   {member.name.charAt(0).toUpperCase()}
                 </div>
-                <div className="flex-grow">
+                <div className="flex-grow mr-4">
                   <div className="flex justify-between mb-1">
                     <span className="font-medium">{member.name}</span>
                     <span className="text-sm font-bold">{Math.round(progressPercentage)}%</span>
@@ -49,7 +48,7 @@ const Dashboard = ({ data, onRemoveMember }: DashboardProps) => {
                     showPercentage={false}
                   />
                   <div className="text-xs text-gray-500 mt-1">
-                    {member.completedAhzab} / {member.totalAhzab} ahzab
+                    {member.completedAhzab} / {member.totalAhzab} أحزاب
                   </div>
                 </div>
               </div>

@@ -17,7 +17,7 @@ const AddMemberForm = ({ onAddMember }: AddMemberFormProps) => {
     e.preventDefault();
     
     if (!name.trim()) {
-      toast.error('Veuillez entrer un nom');
+      toast.error('يرجى إدخال اسم');
       return;
     }
     
@@ -26,9 +26,9 @@ const AddMemberForm = ({ onAddMember }: AddMemberFormProps) => {
     try {
       onAddMember(name.trim());
       setName('');
-      toast.success('Membre ajouté avec succès');
+      toast.success('تمت إضافة العضو بنجاح');
     } catch (error) {
-      toast.error('Erreur lors de l\'ajout du membre');
+      toast.error('خطأ في إضافة العضو');
     } finally {
       setIsSubmitting(false);
     }
@@ -36,16 +36,16 @@ const AddMemberForm = ({ onAddMember }: AddMemberFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="glass p-6 rounded-xl animate-fade-in">
-      <h3 className="text-lg font-medium mb-4">Ajouter un membre</h3>
+      <h3 className="text-lg font-medium mb-4">إضافة عضو</h3>
       
       <div className="flex flex-col space-y-4">
         <div className="space-y-2">
           <label htmlFor="name" className="text-sm font-medium">
-            Nom du membre
+            اسم العضو
           </label>
           <Input
             id="name"
-            placeholder="Entrez le nom"
+            placeholder="أدخل الاسم"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="bg-white bg-opacity-50"
@@ -57,8 +57,8 @@ const AddMemberForm = ({ onAddMember }: AddMemberFormProps) => {
           className="w-full group transition-all"
           disabled={isSubmitting}
         >
-          <UserPlus size={18} className="mr-2 group-hover:scale-110 transition-transform" />
-          Ajouter
+          <UserPlus size={18} className="ml-2 group-hover:scale-110 transition-transform" />
+          إضافة
         </Button>
       </div>
     </form>

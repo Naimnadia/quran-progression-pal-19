@@ -44,7 +44,7 @@ const Index = () => {
   if (loading || !groupData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-primary font-medium">Chargement...</div>
+        <div className="animate-pulse text-primary font-medium">جار التحميل...</div>
       </div>
     );
   }
@@ -62,7 +62,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir="rtl">
       <Header 
         groupName={groupData.name} 
         memberCount={groupData.members.length} 
@@ -72,16 +72,16 @@ const Index = () => {
         <Tabs defaultValue="dashboard" className="w-full animate-fade-in">
           <TabsList className="glass mb-8 p-1 w-full sm:w-auto grid grid-cols-3 sm:flex">
             <TabsTrigger value="dashboard" className="px-4 py-2">
-              <Gauge size={16} className="mr-2" />
-              <span>Tableau de bord</span>
+              <Gauge size={16} className="ml-2" />
+              <span>لوحة القيادة</span>
             </TabsTrigger>
             <TabsTrigger value="members" className="px-4 py-2">
-              <Users size={16} className="mr-2" />
-              <span>Membres</span>
+              <Users size={16} className="ml-2" />
+              <span>الأعضاء</span>
             </TabsTrigger>
             <TabsTrigger value="progress" className="px-4 py-2">
-              <BookOpen size={16} className="mr-2" />
-              <span>Progression</span>
+              <BookOpen size={16} className="ml-2" />
+              <span>التقدم</span>
             </TabsTrigger>
           </TabsList>
           

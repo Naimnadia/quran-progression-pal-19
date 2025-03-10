@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Book, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -11,12 +11,17 @@ interface HeaderProps {
 const Header = ({ groupName, memberCount }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
   
-  // Add scroll listener
-  if (typeof window !== 'undefined') {
-    window.addEventListener('scroll', () => {
+  useEffect(() => {
+    const handleScroll = () => {
       setScrolled(window.scrollY > 10);
-    });
-  }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <header 
@@ -26,6 +31,7 @@ const Header = ({ groupName, memberCount }: HeaderProps) => {
           ? 'glass shadow-md backdrop-blur-md py-3' 
           : 'bg-transparent py-6'
       )}
+      dir="rtl"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
@@ -33,9 +39,9 @@ const Header = ({ groupName, memberCount }: HeaderProps) => {
             <Book size={20} />
           </div>
           <div>
-            <h1 className="text-xl font-semibold tracking-tight" dir="rtl">{groupName}</h1>
+            <h1 className="text-xl font-semibold tracking-tight">{groupName}</h1>
             <p className="text-sm text-muted-foreground flex items-center mt-0.5">
-              <Users size={14} className="mr-1" /> {memberCount} membres
+              <Users size={14} className="ml-1" /> {memberCount} الأعضاء
             </p>
           </div>
         </div>
@@ -43,7 +49,7 @@ const Header = ({ groupName, memberCount }: HeaderProps) => {
         <div className="flex items-center space-x-4">
           <div className="hidden md:flex relative">
             <div className="glass px-3 py-1.5 rounded-full text-sm font-medium">
-              Progression du Coran
+              تقدم القرآن
             </div>
           </div>
         </div>

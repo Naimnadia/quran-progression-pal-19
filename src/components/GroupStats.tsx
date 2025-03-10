@@ -1,8 +1,7 @@
 
-import { Award, BarChart4 } from 'lucide-react';
-import { GroupData, Member } from '@/utils/types';
+import { Award } from 'lucide-react';
+import { GroupData } from '@/utils/types';
 import ProgressBar from './ProgressBar';
-import { cn } from '@/lib/utils';
 
 interface GroupStatsProps {
   data: GroupData;
@@ -20,10 +19,7 @@ const GroupStats = ({ data }: GroupStatsProps) => {
   
   return (
     <div className="glass p-6 rounded-xl animate-fade-in">
-      <h3 className="text-xl font-medium mb-6 flex items-center">
-        <BarChart4 className="mr-2" size={20} />
-        Statistiques du groupe
-      </h3>
+      <h3 className="text-xl font-medium mb-6">أفضل المتسابقين</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {topPerformers.map((performer, index) => {
@@ -32,7 +28,7 @@ const GroupStats = ({ data }: GroupStatsProps) => {
           return (
             <div key={performer.id} className="glass p-4 rounded-lg">
               <div className="text-sm text-gray-500 mb-2">
-                {index === 0 ? "1ère place" : index === 1 ? "2ème place" : "3ème place"}
+                {index === 0 ? "المركز الأول" : index === 1 ? "المركز الثاني" : "المركز الثالث"}
               </div>
               <div className="flex items-center space-x-2 mb-2">
                 <div 
@@ -41,9 +37,9 @@ const GroupStats = ({ data }: GroupStatsProps) => {
                 >
                   {performer.name.charAt(0).toUpperCase()}
                 </div>
-                <div className="font-semibold">{performer.name}</div>
+                <div className="font-semibold mr-2">{performer.name}</div>
                 <div className="text-xs glass px-2 py-0.5 rounded-full bg-brand-100">
-                  <Award size={12} className="inline mr-1" />
+                  <Award size={12} className="inline ml-1" />
                   <span>{Math.round(performancePercentage)}%</span>
                 </div>
               </div>
@@ -54,7 +50,7 @@ const GroupStats = ({ data }: GroupStatsProps) => {
                 className="mt-2"
               />
               <div className="text-xs text-gray-400 mt-3">
-                {performer.completedAhzab} sur {performer.totalAhzab} ahzab complétés
+                {performer.completedAhzab} من {performer.totalAhzab} أحزاب مكتملة
               </div>
             </div>
           );
@@ -63,7 +59,7 @@ const GroupStats = ({ data }: GroupStatsProps) => {
         {topPerformers.length === 0 && (
           <div className="glass p-4 rounded-lg col-span-3 text-center py-8">
             <div className="text-gray-400">
-              Aucune donnée disponible
+              لا توجد بيانات متاحة
             </div>
           </div>
         )}
