@@ -146,7 +146,7 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
                   <CalendarComponent
-                    mode="month"
+                    mode="single"
                     defaultMonth={selectedDate}
                     selected={selectedDate}
                     onSelect={(date) => date && setSelectedDate(date)}
