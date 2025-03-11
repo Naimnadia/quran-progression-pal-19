@@ -5,6 +5,12 @@ export interface Member {
   avatarColor: string;
   totalAhzab: number;
   completedAhzab: number;
+  monthlyProgress?: MonthlyProgress[];
+}
+
+export interface MonthlyProgress {
+  month: string; // Format: YYYY-MM (e.g., "2023-01")
+  ahzabCompleted: number;
 }
 
 export interface GroupData {

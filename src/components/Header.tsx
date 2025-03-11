@@ -45,14 +45,6 @@ const Header = ({ groupName, memberCount }: HeaderProps) => {
             </p>
           </div>
         </div>
-        
-        <div className="flex items-center">
-          <div className="relative">
-            <div className="glass px-3 py-1.5 rounded-full text-sm font-medium font-cairo bg-primary/20">
-              اقرأ و ارتقى
-            </div>
-          </div>
-        </div>
       </div>
     </header>
   );

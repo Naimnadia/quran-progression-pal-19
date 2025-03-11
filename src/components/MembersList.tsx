@@ -1,10 +1,12 @@
 
+import { useState } from 'react';
 import { Member } from '@/utils/types';
 import { cn } from '@/lib/utils';
-import { Trash2 } from 'lucide-react';
+import { Trash2, BarChart2 } from 'lucide-react';
 import ProgressBar from './ProgressBar';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import MemberProgressStats from './MemberProgressStats';
 
 interface MembersListProps {
   members: Member[];
@@ -12,6 +14,8 @@ interface MembersListProps {
 }
 
 const MembersList = ({ members, onRemoveMember }: MembersListProps) => {
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+
   if (members.length === 0) {
     return (
       <div className="glass p-6 rounded-xl text-center">
@@ -29,6 +33,23 @@ const MembersList = ({ members, onRemoveMember }: MembersListProps) => {
       toast.success(`تم حذف ${name} من المجموعة`);
     }
   };
+
+  const handleViewStats = (member: Member) => {
+    setSelectedMember(member);
+  };
+
+  const handleCloseStats = () => {
+    setSelectedMember(null);
+  };
+
+  if (selectedMember) {
+    return (
+      <MemberProgressStats 
+        member={selectedMember}
+        onClose={handleCloseStats}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -66,14 +87,27 @@ const MembersList = ({ members, onRemoveMember }: MembersListProps) => {
                 {Math.round((member.completedAhzab / member.totalAhzab) * 100)}%
               </div>
               
-              <Button 
-                variant="ghost" 
-                size="icon"
-                className="text-gray-400 hover:text-red-500 mr-2"
-                onClick={() => handleRemoveMember(member.id, member.name)}
-              >
-                <Trash2 size={18} />
-              </Button>
+              <div className="flex space-x-2">
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="text-gray-400 hover:text-primary mr-2"
+                  onClick={() => handleViewStats(member)}
+                  title="عرض الإحصائيات"
+                >
+                  <BarChart2 size={18} />
+                </Button>
+                
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="text-gray-400 hover:text-red-500 mr-2"
+                  onClick={() => handleRemoveMember(member.id, member.name)}
+                  title="حذف العضو"
+                >
+                  <Trash2 size={18} />
+                </Button>
+              </div>
             </div>
           </div>
         ))}
