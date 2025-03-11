@@ -109,7 +109,6 @@ const MemberProgressStats = ({ member, onClose }: MemberProgressStatsProps) => {
               <BarChart
                 data={data}
                 margin={{ top: 10, right: 10, left: 0, bottom: 20 }}
-                dir="ltr"
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                 <XAxis 

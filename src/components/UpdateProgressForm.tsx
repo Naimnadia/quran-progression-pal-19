@@ -2,25 +2,38 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { BookOpen, Save } from 'lucide-react';
-import { Member } from '@/utils/types';
+import { BookOpen, Save, Calendar } from 'lucide-react';
+import { Member, MonthlyProgress } from '@/utils/types';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import ProgressBar from './ProgressBar';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { format, parseISO, subMonths } from 'date-fns';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 
 interface UpdateProgressFormProps {
   members: Member[];
-  onUpdateProgress: (memberId: string, completedAhzab: number) => void;
+  onUpdateProgress: (memberId: string, completedAhzab: number, month?: string) => void;
 }
 
 const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormProps) => {
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   const [ahzabCount, setAhzabCount] = useState<number>(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [isHistoricalMode, setIsHistoricalMode] = useState(false);
 
   const handleSelectMember = (member: Member) => {
     setSelectedMember(member);
     setAhzabCount(member.completedAhzab);
+    
+    // Reset historical mode when selecting a new member
+    setIsHistoricalMode(false);
+    setSelectedDate(new Date());
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -39,14 +52,29 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
     setIsSubmitting(true);
     
     try {
-      onUpdateProgress(selectedMember.id, ahzabCount);
-      toast.success('تم تحديث التقدم بنجاح');
+      // If in historical mode, format the month as YYYY-MM
+      const monthStr = isHistoricalMode ? format(selectedDate, 'yyyy-MM') : undefined;
+      
+      onUpdateProgress(selectedMember.id, ahzabCount, monthStr);
+      
+      // Show different success message based on mode
+      if (isHistoricalMode) {
+        toast.success(`تم تحديث التقدم لشهر ${format(selectedDate, 'MMMM yyyy')} بنجاح`);
+      } else {
+        toast.success('تم تحديث التقدم بنجاح');
+      }
+      
       setSelectedMember(null);
+      setIsHistoricalMode(false);
     } catch (error) {
       toast.error('خطأ أثناء التحديث');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const toggleHistoricalMode = () => {
+    setIsHistoricalMode(!isHistoricalMode);
   };
 
   const renderMembersList = () => {
@@ -96,10 +124,47 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
         </h3>
         
         <div className="space-y-4">
+          {/* Add toggle for historical mode */}
+          <div className="flex items-center space-x-2 mb-4">
+            <Button 
+              type="button" 
+              variant={isHistoricalMode ? "default" : "outline"}
+              size="sm"
+              onClick={toggleHistoricalMode}
+              className="mr-2"
+            >
+              <Calendar size={16} className="ml-2" />
+              {isHistoricalMode ? 'تحديث شهر سابق' : 'تحديث الشهر الحالي'}
+            </Button>
+            
+            {isHistoricalMode && (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    {format(selectedDate, 'MMMM yyyy')}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarComponent
+                    mode="month"
+                    defaultMonth={selectedDate}
+                    selected={selectedDate}
+                    onSelect={(date) => date && setSelectedDate(date)}
+                    disabled={(date) => date > new Date()}
+                    initialFocus
+                    className="p-3 pointer-events-auto"
+                  />
+                </PopoverContent>
+              </Popover>
+            )}
+          </div>
+          
           <div className="space-y-2">
             <label htmlFor="ahzabCount" className="text-sm font-medium flex items-center">
               <BookOpen size={16} className="ml-2" />
-              عدد الأحزاب المكتملة
+              {isHistoricalMode 
+                ? `عدد الأحزاب المكتملة في ${format(selectedDate, 'MMMM yyyy')}`
+                : 'عدد الأحزاب المكتملة'}
             </label>
             <div className="flex items-center space-x-4">
               <Input
@@ -137,7 +202,10 @@ const UpdateProgressForm = ({ members, onUpdateProgress }: UpdateProgressFormPro
               type="button" 
               variant="outline"
               className="flex-1 mr-3"
-              onClick={() => setSelectedMember(null)}
+              onClick={() => {
+                setSelectedMember(null);
+                setIsHistoricalMode(false);
+              }}
             >
               إلغاء
             </Button>

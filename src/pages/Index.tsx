@@ -31,8 +31,8 @@ const Index = () => {
     setGroupData(updatedData);
   };
 
-  const handleUpdateProgress = (memberId: string, completedAhzab: number) => {
-    const updatedData = updateMemberProgressInStorage(memberId, completedAhzab);
+  const handleUpdateProgress = (memberId: string, completedAhzab: number, month?: string) => {
+    const updatedData = updateMemberProgressInStorage(memberId, completedAhzab, month);
     setGroupData(updatedData);
   };
 

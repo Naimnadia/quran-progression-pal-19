@@ -1,5 +1,5 @@
 
-import { GroupData, Member } from './types';
+import { GroupData, Member, MonthlyProgress } from './types';
 
 // Default number of ahzab in the Quran
 const TOTAL_AHZAB = 60;
@@ -14,6 +14,7 @@ const defaultData: GroupData = {
       avatarColor: "#0EA5E9",
       totalAhzab: TOTAL_AHZAB,
       completedAhzab: 0,
+      monthlyProgress: [],
     },
     {
       id: "2",
@@ -21,6 +22,7 @@ const defaultData: GroupData = {
       avatarColor: "#10B981",
       totalAhzab: TOTAL_AHZAB,
       completedAhzab: 0,
+      monthlyProgress: [],
     },
     {
       id: "3",
@@ -28,6 +30,7 @@ const defaultData: GroupData = {
       avatarColor: "#8B5CF6",
       totalAhzab: TOTAL_AHZAB,
       completedAhzab: 0,
+      monthlyProgress: [],
     },
     {
       id: "4",
@@ -35,6 +38,7 @@ const defaultData: GroupData = {
       avatarColor: "#F59E0B",
       totalAhzab: TOTAL_AHZAB,
       completedAhzab: 0,
+      monthlyProgress: [],
     },
     {
       id: "5",
@@ -42,6 +46,7 @@ const defaultData: GroupData = {
       avatarColor: "#EF4444",
       totalAhzab: TOTAL_AHZAB,
       completedAhzab: 0,
+      monthlyProgress: [],
     },
   ],
   totalAhzab: TOTAL_AHZAB,
@@ -73,6 +78,7 @@ export const addMember = (name: string): GroupData => {
     avatarColor: colors[data.members.length % colors.length],
     totalAhzab: TOTAL_AHZAB,
     completedAhzab: 0,
+    monthlyProgress: [],
   };
   
   data.members.push(newMember);
@@ -81,12 +87,71 @@ export const addMember = (name: string): GroupData => {
 };
 
 // Update a member's progress
-export const updateMemberProgress = (memberId: string, completedAhzab: number): GroupData => {
+export const updateMemberProgress = (memberId: string, completedAhzab: number, month?: string): GroupData => {
   const data = getGroupData();
   const memberIndex = data.members.findIndex(m => m.id === memberId);
   
   if (memberIndex !== -1) {
-    data.members[memberIndex].completedAhzab = completedAhzab;
+    const member = data.members[memberIndex];
+    
+    // If month is provided, update historical data
+    if (month) {
+      // Initialize monthlyProgress array if it doesn't exist
+      if (!member.monthlyProgress) {
+        member.monthlyProgress = [];
+      }
+      
+      // Check if an entry for this month already exists
+      const existingMonthIndex = member.monthlyProgress.findIndex(
+        mp => mp.month === month
+      );
+      
+      if (existingMonthIndex !== -1) {
+        // Update existing month entry
+        member.monthlyProgress[existingMonthIndex].ahzabCompleted = completedAhzab;
+      } else {
+        // Add new month entry
+        member.monthlyProgress.push({
+          month,
+          ahzabCompleted: completedAhzab
+        });
+      }
+      
+      // Sort monthlyProgress by date (oldest first)
+      member.monthlyProgress.sort((a, b) => a.month.localeCompare(b.month));
+    } else {
+      // Update current progress
+      member.completedAhzab = completedAhzab;
+      
+      // Also update the current month in the monthly progress
+      const currentMonth = new Date().toISOString().substring(0, 7); // YYYY-MM format
+      
+      // Initialize monthlyProgress array if it doesn't exist
+      if (!member.monthlyProgress) {
+        member.monthlyProgress = [];
+      }
+      
+      // Check if an entry for the current month already exists
+      const currentMonthIndex = member.monthlyProgress.findIndex(
+        mp => mp.month === currentMonth
+      );
+      
+      if (currentMonthIndex !== -1) {
+        // Update existing current month entry
+        member.monthlyProgress[currentMonthIndex].ahzabCompleted = completedAhzab;
+      } else {
+        // Add new current month entry
+        member.monthlyProgress.push({
+          month: currentMonth,
+          ahzabCompleted: completedAhzab
+        });
+      }
+      
+      // Sort monthlyProgress by date (oldest first)
+      member.monthlyProgress.sort((a, b) => a.month.localeCompare(b.month));
+    }
+    
+    data.members[memberIndex] = member;
     saveGroupData(data);
   }
   
