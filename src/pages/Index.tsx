@@ -5,7 +5,6 @@ import Header from '@/components/Header';
 import AddMemberForm from '@/components/AddMemberForm';
 import UpdateProgressForm from '@/components/UpdateProgressForm';
 import MembersList from '@/components/MembersList';
-import TopMembers from '@/components/TopMembers';
 import { 
   getGroupData, 
   addMember as addMemberToStorage, 
@@ -56,9 +55,6 @@ const Index = () => {
     return progressB - progressA;
   });
 
-  // Get top 10 members (or all members if less than 10)
-  const topMembers = sortedMembers.slice(0, 10);
-
   return (
     <div className="min-h-screen" dir="rtl">
       <Header 
@@ -67,11 +63,6 @@ const Index = () => {
       />
       
       <main className="max-w-7xl mx-auto pt-28 px-4 pb-16">
-        {/* Top members section */}
-        <div className="mb-8 animate-fade-in">
-          <TopMembers members={topMembers} />
-        </div>
-        
         <Tabs defaultValue="members" className="w-full animate-fade-in">
           <TabsList className="glass mb-8 p-1 w-full sm:w-auto grid grid-cols-2 sm:flex">
             <TabsTrigger value="members" className="px-4 py-2">
