@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -40,17 +39,16 @@ const Progress = () => {
       const updatedMembers = [...updatedGroupData.members];
       
       if (month) {
-        // Update for a specific month
-        updateMemberProgress(updatedMembers[memberIndex], completedAhzab, month);
+        // Update for a specific month - pass memberId instead of member object
+        const updatedData = updateMemberProgress(memberId, completedAhzab, month);
+        updatedGroupData.members = updatedData.members;
       } else {
-        // Update current progress
+        // Update current progress directly
         updatedMembers[memberIndex].completedAhzab = completedAhzab;
+        updatedGroupData.members = updatedMembers;
+        saveGroupData(updatedGroupData);
       }
       
-      updatedGroupData.members = updatedMembers;
-      
-      // Save to local storage
-      saveGroupData(updatedGroupData);
       setGroupData(updatedGroupData);
       
       toast.success('تم تحديث التقدم بنجاح');
