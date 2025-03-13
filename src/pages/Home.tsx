@@ -12,7 +12,7 @@ import {
   calculateAverageProgress 
 } from '@/utils/storage';
 import { GroupData, Member } from '@/utils/types';
-import { ArrowRight, Users, BarChart } from 'lucide-react';
+import { ArrowRight, Users, BarChart, Book } from 'lucide-react';
 import { format } from 'date-fns';
 
 const Home = () => {
@@ -64,7 +64,8 @@ const Home = () => {
     <div className="min-h-screen" dir="rtl">
       <Header 
         groupName={groupData.name} 
-        memberCount={groupData.members.length} 
+        memberCount={groupData.members.length}
+        quickAccess={true}
       />
       
       <main className="max-w-7xl mx-auto pt-28 px-4 pb-16">
@@ -158,30 +159,6 @@ const Home = () => {
               <p className="text-gray-500">لا توجد بيانات متاحة للشهر الحالي</p>
             </Card>
           )}
-        </div>
-        
-        <div className="glass p-6 rounded-xl mb-10">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold">الوصول السريع</h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link to="/" className="block">
-              <div className="glass p-6 rounded-lg hover:shadow-lg transition-all">
-                <Users className="h-8 w-8 text-primary mb-4" />
-                <h3 className="text-lg font-bold mb-2">إدارة الأعضاء</h3>
-                <p className="text-gray-500">إضافة أعضاء جدد وإدارة الأعضاء الحاليين</p>
-              </div>
-            </Link>
-            
-            <Link to="/" className="block">
-              <div className="glass p-6 rounded-lg hover:shadow-lg transition-all">
-                <BarChart className="h-8 w-8 text-primary mb-4" />
-                <h3 className="text-lg font-bold mb-2">تحديث التقدم</h3>
-                <p className="text-gray-500">تسجيل التقدم في قراءة القرآن</p>
-              </div>
-            </Link>
-          </div>
         </div>
       </main>
     </div>
