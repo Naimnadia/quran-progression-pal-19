@@ -12,7 +12,7 @@ import {
   calculateAverageProgress 
 } from '@/utils/storage';
 import { GroupData, Member } from '@/utils/types';
-import { ArrowRight, Users, BarChart, Book } from 'lucide-react';
+import { ArrowRight, Users, BarChart, Book, Award } from 'lucide-react';
 import { format } from 'date-fns';
 
 const Home = () => {
@@ -56,9 +56,13 @@ const Home = () => {
     );
   }
 
-  const groupProgress = calculateGroupProgress(groupData);
-  const averageProgress = calculateAverageProgress(groupData);
   const currentMonth = format(new Date(), 'MMMM yyyy');
+  
+  // Get best performer of the month
+  const bestPerformer = topMonthlyPerformers.length > 0 ? topMonthlyPerformers[0] : null;
+  const bestPerformerProgress = bestPerformer?.monthlyProgress?.find(
+    mp => mp.month === format(new Date(), 'yyyy-MM')
+  )?.ahzabCompleted || 0;
 
   return (
     <div className="min-h-screen" dir="rtl">
@@ -74,40 +78,31 @@ const Home = () => {
           <p className="text-gray-500">شاشة إحصائيات المجموعة والتقدم في قراءة القرآن</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="mb-10">
           <Card className="glass">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg">إجمالي الأعضاء</CardTitle>
+              <CardTitle className="text-lg">أفضل أداء للشهر الحالي</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center">
-                <Users className="h-6 w-6 ml-2 text-primary" />
-                <div className="text-3xl font-bold">{groupData.members.length}</div>
-              </div>
-              <p className="text-sm text-gray-500 mt-2">عدد الأعضاء المسجلين في المجموعة</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="glass">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">متوسط التقدم</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center">
-                <BarChart className="h-6 w-6 ml-2 text-primary" />
-                <div className="text-3xl font-bold">{Math.round(averageProgress)}%</div>
-              </div>
-              <p className="text-sm text-gray-500 mt-2">متوسط تقدم جميع الأعضاء</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="glass">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">الشهر الحالي</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{currentMonth}</div>
-              <p className="text-sm text-gray-500 mt-2">التقدم للشهر الحالي</p>
+              {bestPerformer ? (
+                <div className="flex items-center">
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white mr-3"
+                    style={{ backgroundColor: bestPerformer.avatarColor }}
+                  >
+                    {bestPerformer.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <div className="text-xl font-bold">{bestPerformer.name}</div>
+                    <div className="flex items-center">
+                      <Award className="h-5 w-5 mr-1 text-yellow-500" />
+                      <span className="text-lg">{bestPerformerProgress} حزب</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-gray-500">لا توجد بيانات متاحة للشهر الحالي</p>
+              )}
             </CardContent>
           </Card>
         </div>
