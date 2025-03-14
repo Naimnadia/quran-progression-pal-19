@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -90,11 +91,31 @@
   .progress-bar {
     @apply h-full rounded-full animate-progress-fill;
   }
+  
+  .mobile-card {
+    @apply rounded-xl overflow-hidden border border-white/10 backdrop-blur-xl transition-all;
+  }
+  
+  .mobile-button {
+    @apply rounded-xl flex items-center justify-center gap-2 font-medium transition-all;
+  }
+  
+  .avatar-circle {
+    @apply rounded-full flex items-center justify-center text-white shadow-md;
+  }
 }
 
 @layer utilities {
   .content-auto {
     content-visibility: auto;
+  }
+  
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
   }
 }
 
@@ -139,4 +160,19 @@
 
 [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 1;
+}
+
+/* Mobile specific styles */
+@media (max-width: 768px) {
+  .glass, .glass-dark {
+    @apply rounded-xl overflow-hidden;
+  }
+  
+  .mobile-compact {
+    @apply py-2 px-3;
+  }
+  
+  .mobile-header {
+    @apply text-lg;
+  }
 }

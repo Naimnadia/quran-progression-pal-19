@@ -1,24 +1,24 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Header from '@/components/Header';
-import TopMembers from '@/components/TopMembers';
 import { 
   getGroupData, 
   calculateGroupProgress, 
   calculateAverageProgress 
 } from '@/utils/storage';
 import { GroupData, Member } from '@/utils/types';
-import { ArrowRight, Users, BarChart, Book, Award } from 'lucide-react';
+import { ArrowRight, Users, BarChart, Book, Award, Star } from 'lucide-react';
 import { format } from 'date-fns';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Home = () => {
   const [groupData, setGroupData] = useState<GroupData | null>(null);
   const [loading, setLoading] = useState(true);
   const [topMonthlyPerformers, setTopMonthlyPerformers] = useState<Member[]>([]);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Get data from local storage on component mount
@@ -65,7 +65,7 @@ const Home = () => {
   )?.ahzabCompleted || 0;
 
   return (
-    <div className="min-h-screen" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/70" dir="rtl">
       <Header 
         groupName={groupData.name} 
         memberCount={groupData.members.length}
@@ -74,27 +74,30 @@ const Home = () => {
       
       <main className="max-w-7xl mx-auto pt-28 px-4 pb-16">
         <div className="mb-8 animate-fade-in">
-          <h1 className="text-2xl font-bold mb-2">مرحبا بك في {groupData.name}</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">مرحبا بك في {groupData.name}</h1>
           <p className="text-gray-500">شاشة إحصائيات المجموعة والتقدم في قراءة القرآن</p>
         </div>
         
-        <div className="mb-10">
-          <Card className="glass">
+        <div className="mb-8">
+          <Card className="glass-dark backdrop-blur-xl border border-white/10 overflow-hidden">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg">أفضل أداء للشهر الحالي</CardTitle>
+              <CardTitle className="text-lg flex items-center">
+                <Star className="h-5 w-5 mr-2 text-yellow-500 animate-pulse-scale" />
+                أفضل أداء للشهر الحالي
+              </CardTitle>
             </CardHeader>
             <CardContent>
               {bestPerformer ? (
-                <div className="flex items-center">
+                <div className="flex items-center p-2">
                   <div 
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-white mr-3"
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white mr-3 shadow-lg"
                     style={{ backgroundColor: bestPerformer.avatarColor }}
                   >
                     {bestPerformer.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
                     <div className="text-xl font-bold">{bestPerformer.name}</div>
-                    <div className="flex items-center">
+                    <div className="flex items-center mt-1">
                       <Award className="h-5 w-5 mr-1 text-yellow-500" />
                       <span className="text-lg">{bestPerformerProgress} حزب</span>
                     </div>
@@ -107,11 +110,14 @@ const Home = () => {
           </Card>
         </div>
         
-        <div className="mb-10">
+        <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold">أفضل المتسابقين في {currentMonth}</h2>
+            <h2 className="text-xl font-bold flex items-center">
+              <Award className="h-5 w-5 mr-2 text-primary" />
+              أفضل المتسابقين في {currentMonth}
+            </h2>
             <Link to="/">
-              <Button variant="ghost" size="sm" className="gap-1">
+              <Button variant="ghost" size="sm" className="gap-1 hover:bg-primary/10">
                 عرض الكل
                 <ArrowRight size={16} />
               </Button>
@@ -119,39 +125,57 @@ const Home = () => {
           </div>
           
           {topMonthlyPerformers.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className={`grid grid-cols-1 ${isMobile ? '' : 'md:grid-cols-3'} gap-4`}>
               {topMonthlyPerformers.map((member, index) => {
                 const monthlyProgress = member.monthlyProgress?.find(
                   mp => mp.month === format(new Date(), 'yyyy-MM')
                 );
                 const ahzabCompleted = monthlyProgress?.ahzabCompleted || 0;
                 
+                // Apply different styles based on position
+                const positionClasses = index === 0 
+                  ? 'border-2 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.3)]' 
+                  : index === 1 
+                    ? 'border border-white/20' 
+                    : 'border border-white/10';
+                
                 return (
-                  <Card key={member.id} className={`glass animate-fade-in ${index === 0 ? 'border-2 border-yellow-400' : ''}`}>
-                    <CardHeader className="pb-2">
-                      <div className="flex items-center">
+                  <Card 
+                    key={member.id} 
+                    className={`glass-dark animate-fade-in ${positionClasses} backdrop-blur-xl overflow-hidden transition-all duration-300 hover:scale-[1.02]`}
+                  >
+                    <CardContent className="pt-6 pb-4">
+                      <div className="flex items-center mb-3">
                         <div 
-                          className="w-10 h-10 rounded-full flex items-center justify-center text-white mr-3"
+                          className="w-12 h-12 rounded-full flex items-center justify-center text-white mr-3 shadow-md"
                           style={{ backgroundColor: member.avatarColor }}
                         >
                           {member.name.charAt(0).toUpperCase()}
                         </div>
-                        <CardTitle className="text-lg">{member.name}</CardTitle>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-bold">{member.name}</h3>
+                          <p className="text-sm text-gray-400">
+                            {index === 0 ? 'المركز الأول' : index === 1 ? 'المركز الثاني' : 'المركز الثالث'}
+                          </p>
+                        </div>
+                        <div className="flex items-center justify-center bg-primary/10 rounded-full w-14 h-14 p-2">
+                          <div className="text-xl font-bold text-center">{ahzabCompleted}</div>
+                        </div>
                       </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">{ahzabCompleted} حزب</div>
-                      <p className="text-sm text-gray-500 mt-2">
-                        {index === 0 ? 'المركز الأول' : index === 1 ? 'المركز الثاني' : 'المركز الثالث'}
-                      </p>
+                      <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden mt-2">
+                        <div 
+                          className="h-full bg-gradient-to-r from-primary/60 to-primary rounded-full"
+                          style={{ width: `${Math.min(100, (ahzabCompleted / 60) * 100)}%` }}
+                        ></div>
+                      </div>
                     </CardContent>
                   </Card>
                 );
               })}
             </div>
           ) : (
-            <Card className="glass p-8 text-center">
-              <p className="text-gray-500">لا توجد بيانات متاحة للشهر الحالي</p>
+            <Card className="glass-dark p-8 text-center backdrop-blur-xl">
+              <p className="text-gray-400">لا توجد بيانات متاحة للشهر الحالي</p>
             </Card>
           )}
         </div>
