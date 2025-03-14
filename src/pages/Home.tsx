@@ -50,7 +50,7 @@ const Home = () => {
 
   if (loading || !groupData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="animate-pulse text-primary font-medium">جار التحميل...</div>
       </div>
     );
@@ -65,7 +65,7 @@ const Home = () => {
   )?.ahzabCompleted || 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/70" dir="rtl">
+    <div className="min-h-screen bg-background" dir="rtl">
       <Header 
         groupName={groupData.name} 
         memberCount={groupData.members.length}
@@ -75,14 +75,14 @@ const Home = () => {
       <main className="max-w-7xl mx-auto pt-28 px-4 pb-16">
         <div className="mb-8 animate-fade-in">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">مرحبا بك في {groupData.name}</h1>
-          <p className="text-gray-500">شاشة إحصائيات المجموعة والتقدم في قراءة القرآن</p>
+          <p className="text-muted-foreground">شاشة إحصائيات المجموعة والتقدم في قراءة القرآن</p>
         </div>
         
         <div className="mb-8">
-          <Card className="glass-dark backdrop-blur-xl border border-white/10 overflow-hidden">
+          <Card className="soft-gradient text-white overflow-hidden border-0 shadow-md">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg flex items-center">
-                <Star className="h-5 w-5 mr-2 text-yellow-500 animate-pulse-scale" />
+                <Star className="h-5 w-5 mr-2 text-yellow-200 animate-pulse-scale" />
                 أفضل أداء للشهر الحالي
               </CardTitle>
             </CardHeader>
@@ -90,21 +90,20 @@ const Home = () => {
               {bestPerformer ? (
                 <div className="flex items-center p-2">
                   <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-white mr-3 shadow-lg"
-                    style={{ backgroundColor: bestPerformer.avatarColor }}
+                    className="w-14 h-14 rounded-full flex items-center justify-center text-white mr-3 shadow-lg border-2 border-white/20 bg-white/20"
                   >
                     {bestPerformer.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
                     <div className="text-xl font-bold">{bestPerformer.name}</div>
                     <div className="flex items-center mt-1">
-                      <Award className="h-5 w-5 mr-1 text-yellow-500" />
+                      <Award className="h-5 w-5 mr-1 text-yellow-200" />
                       <span className="text-lg">{bestPerformerProgress} حزب</span>
                     </div>
                   </div>
                 </div>
               ) : (
-                <p className="text-gray-500">لا توجد بيانات متاحة للشهر الحالي</p>
+                <p className="text-white/80">لا توجد بيانات متاحة للشهر الحالي</p>
               )}
             </CardContent>
           </Card>
@@ -134,37 +133,36 @@ const Home = () => {
                 
                 // Apply different styles based on position
                 const positionClasses = index === 0 
-                  ? 'border-2 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.3)]' 
+                  ? 'border-2 border-primary/30 shadow-md' 
                   : index === 1 
-                    ? 'border border-white/20' 
-                    : 'border border-white/10';
+                    ? 'border border-gray-100' 
+                    : 'border border-gray-100';
                 
                 return (
                   <Card 
                     key={member.id} 
-                    className={`glass-dark animate-fade-in ${positionClasses} backdrop-blur-xl overflow-hidden transition-all duration-300 hover:scale-[1.02]`}
+                    className={`bg-white animate-fade-in ${positionClasses} rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md`}
                   >
                     <CardContent className="pt-6 pb-4">
                       <div className="flex items-center mb-3">
                         <div 
-                          className="w-12 h-12 rounded-full flex items-center justify-center text-white mr-3 shadow-md"
-                          style={{ backgroundColor: member.avatarColor }}
+                          className="w-12 h-12 rounded-full flex items-center justify-center text-white mr-3 shadow-sm soft-gradient"
                         >
                           {member.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="flex-1">
                           <h3 className="text-lg font-bold">{member.name}</h3>
-                          <p className="text-sm text-gray-400">
+                          <p className="text-sm text-muted-foreground">
                             {index === 0 ? 'المركز الأول' : index === 1 ? 'المركز الثاني' : 'المركز الثالث'}
                           </p>
                         </div>
                         <div className="flex items-center justify-center bg-primary/10 rounded-full w-14 h-14 p-2">
-                          <div className="text-xl font-bold text-center">{ahzabCompleted}</div>
+                          <div className="text-xl font-bold text-center text-primary">{ahzabCompleted}</div>
                         </div>
                       </div>
-                      <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden mt-2">
+                      <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden mt-3">
                         <div 
-                          className="h-full bg-gradient-to-r from-primary/60 to-primary rounded-full"
+                          className="h-full bg-gradient-to-r from-primary/70 to-primary rounded-full"
                           style={{ width: `${Math.min(100, (ahzabCompleted / 60) * 100)}%` }}
                         ></div>
                       </div>
@@ -174,8 +172,8 @@ const Home = () => {
               })}
             </div>
           ) : (
-            <Card className="glass-dark p-8 text-center backdrop-blur-xl">
-              <p className="text-gray-400">لا توجد بيانات متاحة للشهر الحالي</p>
+            <Card className="bg-white p-8 text-center shadow-sm rounded-2xl">
+              <p className="text-muted-foreground">لا توجد بيانات متاحة للشهر الحالي</p>
             </Card>
           )}
         </div>

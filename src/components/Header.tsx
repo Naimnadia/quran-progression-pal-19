@@ -35,26 +35,26 @@ const Header = ({ groupName, memberCount, quickAccess = false }: HeaderProps) =>
 
   const QuickAccessLinks = () => (
     <>
-      <h2 className="text-lg font-bold mb-3 flex items-center">
+      <h2 className="text-lg font-bold mb-4 flex items-center">
         <ArrowRight className="h-5 w-5 ml-2 text-primary" />
         الوصول السريع
       </h2>
       <div className="flex flex-col gap-3">
-        <Link to="/" className="glass-dark px-4 py-3 rounded-xl hover:bg-primary/10 transition-all flex items-center text-sm shadow-sm">
+        <Link to="/" className="glass px-4 py-3 rounded-2xl hover:bg-primary/10 transition-all flex items-center text-sm shadow-sm">
           <Home className="h-5 w-5 ml-2 text-primary" />
           <div className="text-right">
             <div className="font-medium">الرئيسية</div>
             <div className="text-xs text-muted-foreground">العودة إلى الصفحة الرئيسية</div>
           </div>
         </Link>
-        <Link to="/members" className="glass-dark px-4 py-3 rounded-xl hover:bg-primary/10 transition-all flex items-center text-sm shadow-sm">
+        <Link to="/members" className="glass px-4 py-3 rounded-2xl hover:bg-primary/10 transition-all flex items-center text-sm shadow-sm">
           <Users className="h-5 w-5 ml-2 text-primary" />
           <div className="text-right">
             <div className="font-medium">إدارة الأعضاء</div>
             <div className="text-xs text-muted-foreground">إضافة أعضاء جدد وإدارة الأعضاء الحاليين</div>
           </div>
         </Link>
-        <Link to="/progress" className="glass-dark px-4 py-3 rounded-xl hover:bg-primary/10 transition-all flex items-center text-sm shadow-sm">
+        <Link to="/progress" className="glass px-4 py-3 rounded-2xl hover:bg-primary/10 transition-all flex items-center text-sm shadow-sm">
           <BarChart className="h-5 w-5 ml-2 text-primary" />
           <div className="text-right">
             <div className="font-medium">تحديث التقدم</div>
@@ -70,7 +70,7 @@ const Header = ({ groupName, memberCount, quickAccess = false }: HeaderProps) =>
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         scrolled 
-          ? 'glass-dark shadow-lg backdrop-blur-xl py-3' 
+          ? 'bg-white/80 backdrop-blur-xl shadow-sm py-3' 
           : 'bg-transparent py-4'
       )}
       dir="rtl"
@@ -78,7 +78,7 @@ const Header = ({ groupName, memberCount, quickAccess = false }: HeaderProps) =>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <div className="bg-primary text-white p-2.5 rounded-xl mr-3 shadow-md">
+            <div className="soft-gradient text-white p-2.5 rounded-2xl mr-3 shadow-sm">
               <Book size={20} />
             </div>
             <div>
@@ -94,11 +94,11 @@ const Header = ({ groupName, memberCount, quickAccess = false }: HeaderProps) =>
               {isMobile ? (
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Button variant="outline" size="icon" className="ml-2 rounded-xl bg-black/20 border-white/10 hover:bg-black/30">
+                    <Button variant="outline" size="icon" className="ml-2 rounded-xl border-gray-100 hover:bg-gray-50">
                       <Menu className="h-5 w-5" />
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="right" className="w-[85%] p-6 bg-gradient-to-br from-background to-secondary/70 border-white/10">
+                  <SheetContent side="right" className="w-[85%] p-6 bg-white border-gray-100">
                     <div className="mt-8">
                       <QuickAccessLinks />
                     </div>
