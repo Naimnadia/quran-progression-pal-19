@@ -69,13 +69,25 @@ const Home = () => {
       <Header 
         groupName={groupData.name} 
         memberCount={groupData.members.length}
-        quickAccess={true}
+        quickAccess={false}
       />
       
-      <main className="max-w-7xl mx-auto pt-28 px-4 pb-16">
-        <div className="mb-8 animate-fade-in">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">مرحبا بك في {groupData.name}</h1>
-          <p className="text-muted-foreground">شاشة إحصائيات المجموعة والتقدم في قراءة القرآن</p>
+      <main className="max-w-7xl mx-auto pt-20 px-4 pb-16">
+        {/* Quick access icons */}
+        <div className="flex justify-center gap-6 mb-8 pt-4 animate-fade-in">
+          <Link to="/members" className="flex flex-col items-center p-3 rounded-xl transition-all bg-white/70 shadow-sm hover:shadow-md">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-2">
+              <Users size={24} />
+            </div>
+            <span className="text-sm font-medium">الأعضاء</span>
+          </Link>
+          
+          <Link to="/progress" className="flex flex-col items-center p-3 rounded-xl transition-all bg-white/70 shadow-sm hover:shadow-md">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-2">
+              <BarChart size={24} />
+            </div>
+            <span className="text-sm font-medium">التقدم</span>
+          </Link>
         </div>
         
         <div className="mb-8">
