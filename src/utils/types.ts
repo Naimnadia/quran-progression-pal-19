@@ -5,6 +5,7 @@ export interface Member {
   avatarColor: string;
   totalAhzab: number;
   completedAhzab: number;
+  photoUrl?: string;
   monthlyProgress?: MonthlyProgress[];
 }
 

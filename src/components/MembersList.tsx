@@ -7,6 +7,7 @@ import ProgressBar from './ProgressBar';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import MemberProgressStats from './MemberProgressStats';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 interface MembersListProps {
   members: Member[];
@@ -62,12 +63,14 @@ const MembersList = ({ members, onRemoveMember }: MembersListProps) => {
             className="glass p-4 rounded-xl transition-all duration-300 hover:shadow-lg flex flex-col sm:flex-row sm:items-center"
           >
             <div className="flex items-center space-x-4 mb-4 sm:mb-0 sm:flex-1">
-              <div 
-                className="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-medium"
-                style={{ backgroundColor: member.avatarColor }}
-              >
-                {member.name.charAt(0).toUpperCase()}
-              </div>
+              <Avatar className="w-12 h-12 rounded-full flex-shrink-0">
+                {member.photoUrl ? (
+                  <AvatarImage src={member.photoUrl} alt={member.name} />
+                ) : null}
+                <AvatarFallback style={{ backgroundColor: member.avatarColor }} className="text-white text-lg font-medium">
+                  {member.name.charAt(0).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
               
               <div className="flex-1 mr-4">
                 <h4 className="font-medium">{member.name}</h4>

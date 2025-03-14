@@ -65,7 +65,7 @@ export const saveGroupData = (data: GroupData): void => {
 };
 
 // Add a new member to the group
-export const addMember = (name: string): GroupData => {
+export const addMember = (name: string, photoUrl?: string): GroupData => {
   const data = getGroupData();
   const colors = [
     '#0EA5E9', '#10B981', '#8B5CF6', '#F59E0B', '#EF4444',
@@ -78,6 +78,7 @@ export const addMember = (name: string): GroupData => {
     avatarColor: colors[data.members.length % colors.length],
     totalAhzab: TOTAL_AHZAB,
     completedAhzab: 0,
+    photoUrl,
     monthlyProgress: [],
   };
   

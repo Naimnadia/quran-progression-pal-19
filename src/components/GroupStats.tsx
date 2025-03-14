@@ -2,6 +2,7 @@
 import { Award } from 'lucide-react';
 import { GroupData } from '@/utils/types';
 import ProgressBar from './ProgressBar';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 interface GroupStatsProps {
   data: GroupData;
@@ -31,12 +32,17 @@ const GroupStats = ({ data }: GroupStatsProps) => {
                 {index === 0 ? "المركز الأول" : index === 1 ? "المركز الثاني" : "المركز الثالث"}
               </div>
               <div className="flex items-center space-x-2 mb-2">
-                <div 
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm"
-                  style={{ backgroundColor: performer.avatarColor }}
-                >
-                  {performer.name.charAt(0).toUpperCase()}
-                </div>
+                <Avatar className="w-8 h-8">
+                  {performer.photoUrl ? (
+                    <AvatarImage src={performer.photoUrl} alt={performer.name} />
+                  ) : null}
+                  <AvatarFallback 
+                    style={{ backgroundColor: performer.avatarColor }}
+                    className="text-white text-sm"
+                  >
+                    {performer.name.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
                 <div className="font-semibold mr-2">{performer.name}</div>
                 <div className="text-xs glass px-2 py-0.5 rounded-full bg-brand-100">
                   <Award size={12} className="inline ml-1" />

@@ -13,6 +13,7 @@ import { GroupData, Member } from '@/utils/types';
 import { ArrowRight, Users, BarChart, Book, Award, Star } from 'lucide-react';
 import { format } from 'date-fns';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const Home = () => {
   const [groupData, setGroupData] = useState<GroupData | null>(null);
@@ -101,11 +102,17 @@ const Home = () => {
             <CardContent>
               {bestPerformer ? (
                 <div className="flex items-center p-2">
-                  <div 
-                    className="w-14 h-14 rounded-full flex items-center justify-center text-white mr-3 shadow-lg border-2 border-white/20 bg-white/20"
-                  >
-                    {bestPerformer.name.charAt(0).toUpperCase()}
-                  </div>
+                  <Avatar className="w-14 h-14 mr-3 shadow-lg border-2 border-white/20">
+                    {bestPerformer.photoUrl ? (
+                      <AvatarImage src={bestPerformer.photoUrl} alt={bestPerformer.name} />
+                    ) : null}
+                    <AvatarFallback 
+                      style={{ backgroundColor: bestPerformer.avatarColor }}
+                      className="text-white"
+                    >
+                      {bestPerformer.name.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
                   <div>
                     <div className="text-xl font-bold">{bestPerformer.name}</div>
                     <div className="flex items-center mt-1">
@@ -157,11 +164,17 @@ const Home = () => {
                   >
                     <CardContent className="pt-6 pb-4">
                       <div className="flex items-center mb-3">
-                        <div 
-                          className="w-12 h-12 rounded-full flex items-center justify-center text-white mr-3 shadow-sm soft-gradient"
-                        >
-                          {member.name.charAt(0).toUpperCase()}
-                        </div>
+                        <Avatar className="w-12 h-12 mr-3 shadow-sm">
+                          {member.photoUrl ? (
+                            <AvatarImage src={member.photoUrl} alt={member.name} />
+                          ) : null}
+                          <AvatarFallback 
+                            style={{ backgroundColor: member.avatarColor }}
+                            className="text-white"
+                          >
+                            {member.name.charAt(0).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
                         <div className="flex-1">
                           <h3 className="text-lg font-bold">{member.name}</h3>
                           <p className="text-sm text-muted-foreground">

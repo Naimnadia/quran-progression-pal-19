@@ -3,6 +3,7 @@ import { GroupData } from '@/utils/types';
 import GroupStats from './GroupStats';
 import MembersList from './MembersList';
 import ProgressBar from './ProgressBar';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 interface DashboardProps {
   data: GroupData;
@@ -29,12 +30,17 @@ const Dashboard = ({ data, onRemoveMember }: DashboardProps) => {
             const progressPercentage = (member.completedAhzab / member.totalAhzab) * 100;
             return (
               <div key={member.id} className="flex items-center space-x-4">
-                <div
-                  className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-white text-sm font-medium"
-                  style={{ backgroundColor: member.avatarColor }}
-                >
-                  {member.name.charAt(0).toUpperCase()}
-                </div>
+                <Avatar className="w-10 h-10 flex-shrink-0">
+                  {member.photoUrl ? (
+                    <AvatarImage src={member.photoUrl} alt={member.name} />
+                  ) : null}
+                  <AvatarFallback 
+                    style={{ backgroundColor: member.avatarColor }}
+                    className="text-white text-sm font-medium"
+                  >
+                    {member.name.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
                 <div className="flex-grow mr-4">
                   <div className="flex justify-between mb-1">
                     <span className="font-medium">{member.name}</span>
